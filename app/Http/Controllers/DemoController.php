@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class DemoController extends Controller
@@ -79,7 +80,7 @@ class DemoController extends Controller
 
     function photo_upload(Request $request){
         $photoFile = $request->file('photo');
-        $photoFile->storeAs('upload', $photoFile->getClientOriginalName(), 'public');
+        // $photoFile->storeAs('upload', $photoFile->getClientOriginalName(), 'public');
 
         // dd($request->all(), $request->file('photo'));
         // print_r($request->hasFile('photo'));
@@ -87,10 +88,10 @@ class DemoController extends Controller
 
 
 
-        // $photoFile->move(public_path('uploads'), $photoFile->getClientOriginalName());
+        $photoFile->move(public_path('uploads'), $photoFile->getClientOriginalName());
 
         
-        // return true;
+        return true;
         // print_r($photoFile);
         // return 'hello';
 
@@ -125,5 +126,91 @@ class DemoController extends Controller
 
     function cookie_set(Request $request){
         return $request->cookie('Cookie_6');
+    }
+
+    function return_type(Request $request){
+        // return "Bangladesh";
+        // return true;
+        // return 100;
+        // return array("a", "b", "c");
+        // return array(
+        //     "A" => "Dhaka",
+        //     "B" => "City",
+        //     "C" => "House No"
+        // );
+
+        $myArray=array(
+            array(
+                "A" => "Dhaka",
+                "B" => "City",
+                "C" => "House No"
+            ),
+            array(
+                "A" => "Dhaka",
+                "B" => "City",
+                "C" => "House No"
+            ),
+            array(
+                "A" => "Dhaka",
+                "B" => "City",
+                "C" => "House No"
+            )
+        );
+        // return $myArray;
+    }
+
+    function json_return(Request $request):JsonResponse{
+
+        $code = 403;
+        $content = array('name' => 'Jahid', 'city' => 'London');
+        return response()->json($content, $code);
+    }
+
+    function redirect_response(){
+        // return "Route 01";
+        return redirect("/route2");
+    }
+
+    function redirect_response2(){
+        // return "Route 02";
+        echo 'hello';
+    }
+
+    function res_File_Binary(){
+        $filePath = "uploads/image.png";
+        return response()->file($filePath);
+    }
+
+    function res_file_download(){
+        $filePath = "uploads/image.png";
+        return response()->download($filePath);
+    }
+
+    function cookie_response(){
+        $name = "token";
+        $value = "123xyz";
+        $minutes = 120;
+        $path = "/";
+        $domain = $_SERVER['SERVER_NAME'];
+        $secure = true;
+        $httpOnly = true;
+
+        return response("cookie set successfully")->withCookie(
+            cookie($name,
+            $value,
+            $minutes,
+            $path,
+            $domain,
+            $secure,
+            $httpOnly)
+        );
+    }
+
+    function response_header(){
+        return response("Hello")->header('key1', 'MD.')->header('key2', 'jahid')->header('key3', 'Rahman');
+    }
+
+    function response_view(){
+        return view('page.Home');
     }
 }
