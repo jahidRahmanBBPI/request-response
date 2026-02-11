@@ -111,4 +111,19 @@ class DemoController extends Controller
 
     }
 
+    function read_ip_address(Request $request){
+        // return $request->ip(); // For IP
+        // return $request->getAcceptableContentTypes(); // ip aceptable data.
+
+        if($request->accepts(['text/html'])){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+
+    function cookie_set(Request $request){
+        return $request->cookie('Cookie_6');
+    }
 }

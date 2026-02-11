@@ -19,3 +19,7 @@ Route::post('/data/{name}/{age}', [DemoController::class, 'data_pass_header_and_
 Route::post('/multipart-form-data',[DemoController::class, 'multipart_form_data'])->withoutMiddleware(ValidateCsrfToken::class);
 
 Route::post('/photo',[DemoController::class, 'photo_upload'])->withoutMiddleware(ValidateCsrfToken::class);
+
+Route::post('/ip',[DemoController::class, 'read_ip_address'])->withoutMiddleware(ValidateCsrfToken::class);
+
+Route::post('/cookie',[DemoController::class, 'cookie_set'])->withoutMiddleware(ValidateCsrfToken::class);
