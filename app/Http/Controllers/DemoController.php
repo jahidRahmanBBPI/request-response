@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class DemoController extends Controller
 {
@@ -213,4 +215,76 @@ class DemoController extends Controller
     function response_view(){
         return view('page.Home');
     }
+
+    // lc2r
+
+    // Array & Associative array Response.
+    function demo_1(){
+        $city=['Dhaka', 'Rajshahi', 'Brahmanbaria', 'sylhet'];
+        $assc=array([
+            'name'=> 'jahid',
+            'age'=> '23',
+        ],
+        [
+            'name'=> 'jahid',
+            'age'=> '23',
+        ]
+        );
+        return $assc;
+        return response()->json($assc);
+    }
+    // Json Response with data, mess, code.
+    // response status code: 200, 201, 202, 203, 404, 400, 500, 419, 415, 305 - serve provide
+    // 401 unauth - self.
+    function demo_2(){
+       $ass = Array(['name'=>'Jahid','age'=> '23'],['name'=>'Jahid','age'=> '23']);
+       return response()->json(['status'=>'success', 'data'=>$ass],201);
+    }
+
+
+     // Binary File Response
+    function demo_3(): BinaryFileResponse{
+       $path = public_path('images/hello.png');
+       return response()->file($path);
+    //    http://127.0.0.1:8000/images/hello.png
+    }
+    function demo_4(){
+        $path = public_path('images/hello.png');
+       return response()->download($path);
+    }
+
+    // Response Cookies
+    function demo_5(){
+        $name="jahid_rahman";
+        $value= "cookie";
+        $expTime= 60;
+        $path="/";
+        $domain=$_SERVER["SERVER_NAME"];
+        $secure=true;
+        $httpOnly=true;
+        
+        return response("Cookie Set Success")->cookie($name, $value, $expTime, $path, $domain, $secure, $httpOnly);
+    }
+
+    // Response with header properties.
+    function demo_6(){
+       return response("Header Set Success")
+       ->header('Jahid', 'ostad1 -value')
+       ->header('Ashik_vai', 'ostad1 -value')
+       ->header('Reza_vai', 'ostad1 -value');
+    }
+
+    // Response blade view.
+    function demo_7(){
+    return view('page.Home');
+    }
+    // function demo_8(){
+
+    // }
+    // function demo_9(){
+
+    // }
+    // function demo_10(){
+
+    // }
 }

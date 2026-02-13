@@ -66,3 +66,17 @@ Route::get("/persons",[PersonController::class, "person_form"]);
 Route::post("/persons",[PersonController::class, "createAPerson"])->withoutMiddleware(ValidateCsrfToken::class);
 
 // Route::post("/api/persons", [ApiController::class,"createAPerson"])->withoutMiddleware(ValidateCsrfToken::class);
+
+// C2R
+Route::get("/demo1", [DemoController::class,"demo_1"]);
+
+Route::get("/demo2", [DemoController::class,"demo_2"])->withoutMiddleware(ValidateCsrfToken::class);
+Route::get("/demo3", [DemoController::class,"demo_3"]);
+Route::get("/demo4", [DemoController::class,"demo_4"]);
+Route::get("/demo5", [DemoController::class,"demo_5"]);
+Route::get("/demo6", [DemoController::class,"demo_6"]);
+// Route::get("/demo7", [DemoController::class,"demo_7"]);
+// Route::get("/demo8", [DemoController::class,"demo_8"]);
+// Route::get("/demo9", [DemoController::class,"demo_9"]);
+// Route::get("/demo10", [DemoController::class,"demo_10"]);
+
